@@ -47,4 +47,31 @@ class CompanyController extends Controller
         $companies = Company::all();
         return view('companies.all', compact('companies'));
     }
+
+    public function edit_view(Request $request)
+    {
+        $product = Company::find($request->id);
+        if ($product) {
+            return $product;
+        }
+        return response()->json([
+            'error' => 'يوجد خطأ حاول مرة اخرى'
+        ]);
+    }
+
+    public function edit_companies(Request $request)
+    {
+        $rules = $this->getRules();
+        $customMSG = $this->getMSG();
+        $validator = Validator::make($request->all(), $rules, $customMSG);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+        $company = Company::find($request->id);
+        $update = $company->update($request->all());
+        if ($update) {
+            return redirect()->back()->with('success', 'تم تعديل بيانات الموزع');
+        }
+        return redirect()->back()->with('fail', 'خطأ! لم يتم تعديل بيانات الموزع');
+    }
 }

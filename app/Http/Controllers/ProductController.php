@@ -144,6 +144,6 @@ class ProductController extends Controller
         if ($update_current && ($update_s || $update_m || $update_l)) {
             return redirect()->back()->with('products', $products)->with('success', 'تم تعديل المنتج');
         }
-        return redirect()->back()->with('products', $products)->with('fail', 'خطأ في تعديل المنتج');;
+        return redirect()->back()->with('products', $products)->with('fail', 'خطأ في تعديل المنتج');
     }
 }

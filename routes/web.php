@@ -65,6 +65,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/all', [CompanyController::class, 'all_companies'])->name('all.companies');
         Route::get('/add-view', function(){ return view('companies.add'); })->name('add.companies.view');
         Route::post('/add', [CompanyController::class, 'add_companies'])->name('add.companies');
+        Route::get('edit', [CompanyController::class, 'edit_view'])->name('edit.companies.view');
+        Route::post('/save-edit', [CompanyController::class, 'edit_companies'])->name('edit.companies');
     });
 
 ///////Admin section
