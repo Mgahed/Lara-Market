@@ -20,9 +20,9 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
-                                    ارباح هذا الشهر
+                                    مبيعات هذا الشهر
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{__('4000')}} جنيه</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$monthly_sells}} جنيه</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-money-bill-alt fa-2x text-gray-300"></i>
@@ -39,9 +39,9 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-s font-weight-bold text-success text-uppercase mb-1">
-                                    ارباح هذا العام
+                                    مبيعات هذا العام
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{__('50000')}} جنيه</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$yearly_sells}} جنيه</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -139,7 +139,7 @@
                         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: [100000, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+                        data: [{{$arr[0]}}, {{$arr[1]}}, {{$arr[2]}}, {{$arr[3]}}, {{$arr[4]}}, {{$arr[5]}}, {{$arr[6]}}, {{$arr[7]}}, {{$arr[8]}}, {{$arr[9]}}, {{$arr[10]}}, {{$arr[11]}}],
                     }],
                 },
                 options: {

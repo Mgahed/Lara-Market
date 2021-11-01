@@ -14,7 +14,12 @@ class Order extends Model
         'customer_id',
         'product_id',
         'quantity',
-        'order_number'
+        'order_number',
+        'sum'
+    ];
+
+    protected $casts = [
+        'sum' => 'float'
     ];
 
     public function user()

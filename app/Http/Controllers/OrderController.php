@@ -29,7 +29,8 @@ class OrderController extends Controller
                 'user_id' => $item->user_id,
                 'customer_id' => $customer->id,
                 'product_id' => $item->product_id,
-                'quantity' => $item->quantity
+                'quantity' => $item->quantity,
+                'sum' => $request->sum
             ]);
         }
         PendingOrder::where('order_number', $request->order_id)->delete();
