@@ -144,13 +144,13 @@
                             @csrf
                             <input class="sell_order_id" type="hidden" name="order_id"
                                    value="{{$first_order?$first_order[0]->order_number:'none'}}">
-                            <input type="text" class="form-control" name="customer_name" placeholder="اسم العميل"
-                                   list="customers">
-                            <datalist id="customers">
+                            <input type="hidden" class="form-control" id="customer_name" name="customer_name" placeholder="اسم العميل" value=""
+                                   {{--list="customers"--}}/>
+                            <select id="customerslist" class="form-control" placeholder="اسم العميل">
                                 @foreach ($customers as $customer)
-                                    <option value="{{$customer->name}}">
+                                    <option value="{{$customer->name}}">{{$customer->name}}</option>
                                 @endforeach
-                            </datalist>
+                            </select>
                             <br>
                             <center>
                                 <button type="submit" class="btn btn-success">تأكيد</button>
@@ -199,5 +199,7 @@
                 },
             });
         });
+
+        $('#customerslist').dataList({return_mask:'text', value_selected_to:'customer_name', clearOnFocus: true});
     </script>
 @endpush

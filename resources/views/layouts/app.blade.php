@@ -13,6 +13,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     {{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('datalist/dataList.js')}}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -23,6 +24,7 @@
     <link href="{{asset('img/logo.jpg')}}" rel="shortcut icon"/>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="{{asset('datalist/dataList.css')}}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @stack('style')
 </head>
