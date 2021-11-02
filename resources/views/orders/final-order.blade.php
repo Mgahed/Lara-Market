@@ -27,22 +27,22 @@
                     <th>السعر الكلي</th>
                 </tr>
                 </thead>
-                <tbody> @php($sum = 0)
+                <tbody> {{--@php($sum = 0)--}}
                 @foreach ($final_order as $item)
                     <tr>
                         <td class="hide">{{$item->product->barcode}}</td>
                         <td>{{$item->product->name}}</td>
-                        <td>{{$item->product->price_of_sell}}</td>
+                        <td>{{$item->price}}</td>
                         <td>{{$item->quantity}}</td>
-                        @php($sum += $item->product->price_of_sell*$item->quantity)
-                        <td>{{$item->product->price_of_sell*$item->quantity}}</td>
+                        {{--@php($sum += $item->product->price_of_sell*$item->quantity)--}}
+                        <td>{{$item->price*$item->quantity}}</td>
                     </tr>
                 @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
                     <td colspan="3"><b>المجموع</b></td>
-                    <td colspan="2"><b>{{$sum}}</b></td>
+                    <td colspan="2"><b>{{$item->sum}}</b></td>
                 </tr>
                 </tfoot>
             </table>
@@ -59,7 +59,7 @@
 @push('bottom-script')
     <script type="text/javascript" src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/jquery-easing/jquery.easing.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/datatables-demo.js')}}"></script>
     <script type="text/javascript">

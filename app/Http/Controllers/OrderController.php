@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function final_order(Request $request)
     {
-        $order = PendingOrder::where('order_number', $request->order_id)->get();
+        $order = PendingOrder::with('product:id,price_of_sell')->where('order_number', $request->order_id)->get();
         if (!$order->count() || !$request->customer_name) {
             return redirect()->back()->with(['fail2' => 'لا يوجد طلب او لم يتم ادخال اسم العميل']);
         }
@@ -30,7 +30,8 @@ class OrderController extends Controller
                 'customer_id' => $customer->id,
                 'product_id' => $item->product_id,
                 'quantity' => $item->quantity,
-                'sum' => $request->sum
+                'sum' => $request->sum,
+                'price' => $item->product->price_of_sell
             ]);
         }
         PendingOrder::where('order_number', $request->order_id)->delete();

@@ -29,7 +29,7 @@
                     <th>سعر البيع</th>
                     <th>سعر الشراء</th>
                     <th>النوع</th>
-                    <th class="hide">العمليات</th>
+                    <th class="">العمليات</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,7 @@
                         <td>{{$product->price_of_sell}}</td>
                         <td>{{$product->price_of_buy}}</td>
                         <td>{{$product->category}}</td>
-                        <td class="hide">
+                        <td class="">
                             <button type="button" onclick="my_ajax({{$product->id}})" class="btn btn-success"
                                     data-toggle="modal" data-target="#exampleModal">
                                 تعديل <i class="fa fa-pencil"></i>
@@ -138,7 +138,7 @@
 @push('bottom-script')
     <script type="text/javascript" src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/jquery-easing/jquery.easing.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/datatables-demo.js')}}"></script>
     <script type="text/javascript">

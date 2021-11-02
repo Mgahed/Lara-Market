@@ -135,7 +135,7 @@
                             @endforeach
                             <div class="d-flex mt-2">
                                 <span>المجموع</span>
-                                <div class="ml-auto">{{$sum}}</div>
+                                <div class="ml-auto" id="get_sum">{{$sum}}</div>
                             </div>
                         @endif
                     </div>
@@ -144,7 +144,7 @@
                             @csrf
                             <input class="sell_order_id" type="hidden" name="order_id"
                                    value="{{$first_order?$first_order[0]->order_number:'none'}}">
-                            <input type="hidden" name="sum" value="{{$sum}}">
+                            <input type="hidden" name="sum" id="put_sum" value="{{$sum}}">
                             <input type="hidden" class="form-control" id="customer_name" name="customer_name" placeholder="اسم العميل" value=""
                                    {{--list="customers"--}}/>
                             <select id="customerslist" class="form-control" name="customer_name" placeholder="اسم العميل">
@@ -191,6 +191,9 @@
                         document.getElementById("focus").focus();
 
                         $('#ndhtml').html(data.ndhtml);
+
+                        let sum = $('#get_sum').text();
+                        $('#put_sum').val(sum);
                     }
                     console.log(data);
                 },

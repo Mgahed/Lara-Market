@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('customer_id')->nullable();
             $table->bigInteger('product_id');
+            $table->double('price');
             $table->double('quantity');
             $table->double('sum');
             $table->timestamps();

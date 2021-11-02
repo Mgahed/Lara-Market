@@ -158,7 +158,7 @@ class HomeController extends Controller
                 $ndhtml .= '<div class="d-flex"><span>' . $order->quantity . '.x' . $order->product->name . '</span><div class="ml-auto">' . $order->product->price_of_sell * $order->quantity . '</div></div><hr style="margin-bottom: 0; border-color: rgba(0, 0, 0, .3);">';
                 $sum += $order->product->price_of_sell * $order->quantity;
             }
-            $ndhtml .= '<div class="d-flex mt-2"><span>المجموع</span><div class="ml-auto">' . $sum . '</div></div>';
+            $ndhtml .= '<div class="d-flex mt-2"><span>المجموع</span><div class="ml-auto" id="get_sum">' . $sum . '</div></div>';
             return response()->json([
                 'order_number' => $order_number,
                 'ndhtml' => $ndhtml
