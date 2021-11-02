@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
+                                <div class="text-s font-weight-bold text-primary text-uppercase mb-1" style="color: #577AE1 !important;">
                                     مبيعات هذا الشهر
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{$monthly_sells}} جنيه</div>
@@ -130,13 +130,13 @@
                         label: "الارباح",
                         lineTension: 0.3,
                         backgroundColor: "rgba(78,115,223,0.3)",
-                        borderColor: "rgba(78, 115, 223, 1)",
+                        borderColor: "#157B9A",
                         pointRadius: 3,
-                        pointBackgroundColor: "rgb(110,83,210)",
-                        pointBorderColor: "rgb(134,77,215)",
+                        pointBackgroundColor: "#4aa9c6",
+                        pointBorderColor: "#4aa9c6",
                         pointHoverRadius: 3,
-                        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHoverBackgroundColor: "#084658",
+                        pointHoverBorderColor: "#084658",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
                         data: [{{$arr[0]}}, {{$arr[1]}}, {{$arr[2]}}, {{$arr[3]}}, {{$arr[4]}}, {{$arr[5]}}, {{$arr[6]}}, {{$arr[7]}}, {{$arr[8]}}, {{$arr[9]}}, {{$arr[10]}}, {{$arr[11]}}],
