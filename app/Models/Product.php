@@ -34,4 +34,9 @@ class Product extends Model
     {
         return $this->hasMany(PendingOrder::class, 'product_id', 'id');
     }
+
+    public function expense()
+    {
+        return $this->hasMany(Expense::class, 'product_id', 'id');
+    }
 }

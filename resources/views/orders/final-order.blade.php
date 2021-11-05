@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container">
-        @if (session('fail'))
+        @if (!empty($message))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{session('fail')}}
+                {!!$message!!}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

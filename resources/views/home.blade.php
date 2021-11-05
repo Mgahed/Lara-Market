@@ -153,6 +153,8 @@
                                 @endforeach
                             </select>
                             <br>
+                            <input type="number" step="0.01" class="form-control" name="payed" placeholder="المبلغ المدفوع" required value="0"/>
+                            <br>
                             <center>
                                 <button type="submit" class="btn btn-success">تأكيد</button>
                             </center>
