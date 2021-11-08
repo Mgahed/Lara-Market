@@ -46,6 +46,11 @@
                                     data-toggle="modal" data-target="#exampleModal">
                                 تعديل <i class="fa fa-pencil"></i>
                             </button>
+
+                            <button type="button" onclick="get_quantity({{$product->id}})" class="btn btn-success"
+                                    data-toggle="modal" data-target="#add_quantity">
+                                اضافة كمية <i class="fa fa-plus-square-o"></i>
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -59,7 +64,6 @@
     </center>
 
     <!-- Modal -->
-
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -92,8 +96,8 @@
                         <small class="form-text text-danger">{{$message}}</small>
                         @enderror
                         <div class="form-group hide-quantity">
-                            <label for="quantity">الكمية</label>
-                            <input id="quantity" value="0" type="number" class="form-control"
+                            {{--<label for="quantity">الكمية</label>--}}
+                            <input id="quantity" value="0" type="hidden" class="form-control"
                                    placeholder="الكمية" name="quantity">
                         </div>
                         @error('quantity')
@@ -131,6 +135,52 @@
             </div>
         </div>
     </div>
+
+    {{--Modal2--}}
+    <div class="modal fade" id="add_quantity" tabindex="-1" aria-labelledby="add_quantityLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="add_quantityLabel">زيادة الكمية</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger alert-dismissible fade show ajax-error-hide"
+                         style="display: none; width: 100%;" role="alert">
+                        <span class="ajax-error"></span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <br>
+                    </div>
+                    <form method="post" action="{{route('add.product.quantity')}}">
+                        @csrf
+
+                        <input id="id2" value="" type="hidden" class="form-control" name="id2" autocomplete="off">
+
+                        <div class="form-group hide-quantity">
+                            <label for="quantity2">الكمية</label>
+                            <input id="quantity2" required value="0" type="number" class="form-control"
+                                   placeholder="الكمية" name="quantity2">
+                        </div>
+                        @error('quantity2')
+                        <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                        <br>
+                        <center>
+                            <button type="submit" class="btn btn-primary notallowed">حفظ التعديلات</button>
+                        </center>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">غلق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @push('style')
     <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap4.css')}}">
@@ -210,6 +260,11 @@
                     console.log(a_errors);
                 },
             });
+        }
+
+        function get_quantity(id) {
+            $('#id2').val(id);
+            $('#quantity2').val(0);
         }
 
         //print

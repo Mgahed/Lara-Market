@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -67,6 +68,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/add', [CompanyController::class, 'add_companies'])->name('add.companies');
         Route::get('edit', [CompanyController::class, 'edit_view'])->name('edit.companies.view');
         Route::post('/save-edit', [CompanyController::class, 'edit_companies'])->name('edit.companies');
+    });
+
+///////el expenses section
+    Route::group(['prefix' => 'expenses'], function () {
+        Route::post('/add-quantity', [ExpenseController::class, 'add_quantity'])->name('add.product.quantity');
     });
 
 ///////Admin section

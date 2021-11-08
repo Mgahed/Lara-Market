@@ -29,7 +29,7 @@ class OrderController extends Controller
             $product->update([
                 'quantity' => $product->quantity - $item->quantity
             ]);
-            
+
             Order::create([
                 'order_number' => $request->order_id,
                 'user_id' => $item->user_id,
