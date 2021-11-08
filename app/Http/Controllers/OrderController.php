@@ -25,10 +25,53 @@ class OrderController extends Controller
         }
 
         foreach ($order as $item) {
-            $product = Product::find($item->product_id);
+            $product = Product::with('productsize')->find($item->product_id);
+            $current_quantity = $product->quantity - $item->quantity;
             $product->update([
-                'quantity' => $product->quantity - $item->quantity
+                'quantity' => $current_quantity
             ]);
+
+            /*----------Quantity Update----------*/
+            if ($product->size === 'm') {
+                $product->update([//update current product(medium)
+                    'quantity' => $current_quantity
+                ]);
+                Product::where('barcode', $product->productsize->barcode_s)
+                    ->update([//update small product
+                        'quantity' => $product->productsize->quantity_s * ($current_quantity) / $product->productsize->quantity_m
+                    ]);
+                Product::where('barcode', $product->productsize->barcode_l)
+                    ->update([//update large product
+                        'quantity' => $product->productsize->quantity_l * ($current_quantity) / $product->productsize->quantity_m
+                    ]);
+                /*--------------*/
+            } elseif ($product->size === 'l') {
+                $product->update([//update current product(large)
+                    'quantity' => $current_quantity
+                ]);
+                Product::where('barcode', $product->productsize->barcode_s)
+                    ->update([//update small product
+                        'quantity' => $product->productsize->quantity_s * ($current_quantity) / $product->productsize->quantity_l
+                    ]);
+                Product::where('barcode', $product->productsize->barcode_m)
+                    ->update([//update medium product
+                        'quantity' => $product->productsize->quantity_m * ($current_quantity) / $product->productsize->quantity_l
+                    ]);
+                /*--------------*/
+            } else {
+                $product->update([//update current product(small)
+                    'quantity' => $current_quantity
+                ]);
+                Product::where('barcode', $product->productsize->barcode_m)
+                    ->update([//update medium product
+                        'quantity' => $product->productsize->quantity_m * ($current_quantity) / $product->productsize->quantity_s
+                    ]);
+                Product::where('barcode', $product->productsize->barcode_l)
+                    ->update([//update large product
+                        'quantity' => $product->productsize->quantity_l * ($current_quantity) / $product->productsize->quantity_s
+                    ]);
+            }
+            /*----------End Quantity Update----------*/
 
             Order::create([
                 'order_number' => $request->order_id,
