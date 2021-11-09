@@ -79,5 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/general-report', [AdminController::class, 'general_report'])->name('general.report');
+        Route::get('/sells-report', [AdminController::class, 'sells_report'])->name('sells.report');
+        Route::get('/expenses-report', [AdminController::class, 'expenses_report'])->name('expenses.report');
     });
 });

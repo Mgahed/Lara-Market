@@ -49,6 +49,18 @@ class AdminController extends Controller
         $orders = Order::with('user:id,name')->groupBy('order_number')->get();
         $expenses = Expense::with('user:id,name')->with('product:id,name')->get();
 //        return $expenses;
-        return view('admin.generalReport', compact('orders','expenses'));
+        return view('admin.generalReport', compact('orders', 'expenses'));
+    }
+
+    public function sells_report()
+    {
+        $orders = Order::with('user:id,name')->groupBy('order_number')->get();
+        return view('admin.sellsReport', compact('orders'));
+    }
+
+    public function expenses_report()
+    {
+        $expenses = Expense::with('user:id,name')->with('product:id,name')->get();
+        return view('admin.expensesReport', compact('expenses'));
     }
 }

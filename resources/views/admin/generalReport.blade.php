@@ -69,7 +69,7 @@
                                         <td><span class="text-danger">لا يوجد</span></td>
                                         <td><span class="text-danger">لا يوجد</span></td>
                                     @endif
-                                    <td>{{date('Y-m-d -- h:i A', strtotime($order->updated_at))}}</td>
+                                    <td>{{date('Y-m-d -- h:i A', strtotime($expense->updated_at))}}</td>
                                     @php($sum_expense += $expense->cost)
                                     <td>{{$expense->cost}}</td>
                                 </tr>

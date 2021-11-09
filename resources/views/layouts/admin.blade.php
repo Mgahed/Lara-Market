@@ -23,9 +23,12 @@
     <!-- FavIcon -->
     <link href="{{asset('img/logo.jpg')}}" rel="shortcut icon"/>
 
+    {{--Scroll css--}}
+    <link rel="stylesheet" href="{{asset('css/scroller.css')}}">
+
 </head>
 
-<body id="page-top">
+<body>
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -97,28 +100,22 @@
                 <span>تقرير شامل</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+        <li class="nav-item {{Request::is('dashboard/sells-report') ? 'active' : ''}}">
+            <a class="nav-link" href="{{route('sells.report')}}">
                 <i class="fas fa-file-alt"></i>
-                <span>تقرير شامل</span></a>
+                <span>تقرير المبيعات</span></a>
+        </li>
+
+        <li class="nav-item {{Request::is('dashboard/expenses-report') ? 'active' : ''}}">
+            <a class="nav-link" href="{{route('expenses.report')}}">
+                <i class="fas fa-file-alt"></i>
+                <span>تقرير المصاريف</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-file-alt"></i>
-                <span>تقرير شامل</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-file-alt"></i>
-                <span>تقرير شامل</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-file-alt"></i>
-                <span>تقرير شامل</span></a>
+                <span>تقرير دخول العاملين</span></a>
         </li>
 
         <!-- Divider -->
@@ -147,7 +144,7 @@
                 </button>
 
                 <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul id="page-top" class="navbar-nav ml-auto">
 
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown arrow">
@@ -174,14 +171,14 @@
 
             </nav>
             <!-- End of Topbar -->
-            <div style="height: 30em !important;">
+            <div id="admin-content" style="height: 30em !important;">
             @yield('admin-content')
             <!-- Footer -->
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
                     <span>Copyright &copy; <a target="_blank"
-                                              href="http://mgahed.me">By Mgahed</a> {{now()->year}}</span>
+                                              href="https://mrtechnawy.com/business">By Mr Technawy</a> {{now()->year}}</span>
                         </div>
                     </div>
                 </footer>
@@ -197,8 +194,14 @@
 </div>
 <!-- End of Page Wrapper -->
 
+@if (!Request::is('dashboard'))
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-down rounded" href="#bottom">
+        <i class="fas fa-angle-down"></i>
+    </a>
+@endif
 <!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
+<a class="scroll-to-top rounded" href="#">
     <i class="fas fa-angle-up"></i>
 </a>
 
@@ -218,6 +221,21 @@
 <!-- Page level custom scripts -->
 <script src="{{asset('admin/js/demo/chart-area-demo.js')}}"></script>
 <script src="{{asset('admin/js/demo/chart-pie-demo.js')}}"></script>
+
+<script>
+    /*go down*/
+    100 > $(this).scrollTop() ? $(".scroll-to-down").fadeIn() : $(".scroll-to-down").fadeOut();
+    $('*').scroll(function () {
+        100 > $(this).scrollTop() ? $(".scroll-to-down").fadeIn() : $(".scroll-to-down").fadeOut();
+        100 < $(this).scrollTop() ? $(".scroll-to-top").fadeIn() : $(".scroll-to-top").fadeOut();
+    });
+    $('.scroll-to-top').click(function () {
+        $("*").animate({scrollTop: 0}, "slow");
+    });
+    $('.scroll-to-down').click(function () {
+        $("*").animate({scrollTop: $(".container-fluid").height()}, "slow");
+    });
+</script>
 @stack('bottom-script')
 </body>
 
