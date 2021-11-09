@@ -81,5 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/general-report', [AdminController::class, 'general_report'])->name('general.report');
         Route::get('/sells-report', [AdminController::class, 'sells_report'])->name('sells.report');
         Route::get('/expenses-report', [AdminController::class, 'expenses_report'])->name('expenses.report');
+        Route::get('/pay-user', [AdminController::class, 'pay_user'])->name('pay.user');
+        Route::post('/pay-user', [AdminController::class, 'pay_user_post'])->name('pay.user');
     });
 });

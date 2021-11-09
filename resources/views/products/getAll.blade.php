@@ -29,7 +29,7 @@
                     <th>سعر البيع</th>
                     <th>سعر الشراء</th>
                     <th>النوع</th>
-                    <th class="">العمليات</th>
+                    <th class="hide-print">العمليات</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,7 @@
                         <td>{{$product->price_of_sell}}</td>
                         <td>{{$product->price_of_buy}}</td>
                         <td>{{$product->category}}</td>
-                        <td class="">
+                        <td class="hide-print">
                             <button type="button" onclick="my_ajax({{$product->id}})" class="btn btn-success"
                                     data-toggle="modal" data-target="#exampleModal">
                                 تعديل <i class="fa fa-pencil"></i>
@@ -276,7 +276,7 @@
 
             newWin.document.open();
 
-            newWin.document.write('<html dir="rtl"><body onload="window.print()"><style>.hide{display:none;} table{width: 100%;} table, th, td {border: 1px solid black;border-collapse: collapse; direction:rtl; text-align-last: center;}</style>' + divToPrint.innerHTML + '</body></html>');
+            newWin.document.write('<html dir="rtl"><body onload="window.print()"><style>.hide-print{display:none;} table{width: 100%;} table, th, td {border: 1px solid black;border-collapse: collapse; direction:rtl; text-align-last: center;}</style>' + divToPrint.innerHTML + '</body></html>');
 
             newWin.document.close();
 

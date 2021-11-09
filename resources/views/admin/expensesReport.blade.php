@@ -37,14 +37,14 @@
                             @endif
                             <td>{{date('Y-m-d -- h:i A', strtotime($expense->updated_at))}}</td>
                             @php($sum += $expense->cost)
-                            <td>{{$expense->cost}}</td>
+                            <td class="cost">{{$expense->cost}}</td>
                         </tr>
                     @endforeach
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="3"><b>المجموع</b></td>
-                        <td colspan="1"><b>{{$sum}}</b></td>
+                        <td colspan="4"><b>المجموع</b></td>
+                        <td class="final-sum" colspan="1"><b>{{$sum}}</b></td>
                     </tr>
                     </tfoot>
                 </table>
@@ -95,4 +95,5 @@
 
         });
     </script>
+    <x-data-table-filter-component/>
 @endpush

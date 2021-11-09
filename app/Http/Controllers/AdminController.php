@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Expense;
 use App\Models\Order;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -62,5 +65,35 @@ class AdminController extends Controller
     {
         $expenses = Expense::with('user:id,name')->with('product:id,name')->get();
         return view('admin.expensesReport', compact('expenses'));
+    }
+
+    public function pay_user()
+    {
+        $users = User::select('id', 'name')->where('role', '!=', 'admin')->get();
+        return view('admin.payEmployee', compact('users'));
+    }
+
+    public function pay_user_post(Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+            'price' => 'required|numeric|min:0',
+        ];
+        $customMSG = [
+            'name.required' => 'يجب ان يكون هناك اسم',
+            'price.required' => 'يجب ان يكون هناك مبلغ',
+            'price.numeric' => 'يجب ان يكون ارقام فقط',
+            'price.min' => 'يجب ان يكون اكبر من 0',
+        ];
+        $validator = Validator::make($request->all(), $rules, $customMSG);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+        Expense::create([
+            'expense_details' => "دفع راتب ل" . $request->name,
+            'cost' => $request->price,
+            'user_id' => auth()->user()->id,
+        ]);
+        return redirect()->back()->with('success', 'تم تسجيل دفع الراتب ل' . $request->name);
     }
 }

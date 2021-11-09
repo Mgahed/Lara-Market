@@ -35,14 +35,14 @@
                         <td>{{$item->price}}</td>
                         <td>{{$item->quantity}}</td>
                         {{--@php($sum += $item->product->price_of_sell*$item->quantity)--}}
-                        <td>{{$item->price*$item->quantity}}</td>
+                        <td class="cost">{{$item->price*$item->quantity}}</td>
                     </tr>
                 @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
                     <td colspan="3"><b>المجموع</b></td>
-                    <td colspan="2"><b>{{$item->sum}}</b></td>
+                    <td class="final-sum" colspan="2"><b>{{$item->sum}}</b></td>
                 </tr>
                 </tfoot>
             </table>
@@ -91,4 +91,5 @@
 
         });
     </script>
+    <x-data-table-filter-component/>
 @endpush

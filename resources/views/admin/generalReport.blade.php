@@ -38,7 +38,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="3"><b>المجموع</b></td>
+                                <td colspan="3"><b>المجموع الكلي</b></td>
                                 <td colspan="1"><b>{{$sum}}</b></td>
                             </tr>
                             </tfoot>
@@ -77,7 +77,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="3"><b>المجموع</b></td>
+                                <td colspan="4"><b>المجموع الكلي</b></td>
                                 <td colspan="1"><b>{{$sum_expense}}</b></td>
                             </tr>
                             </tfoot>

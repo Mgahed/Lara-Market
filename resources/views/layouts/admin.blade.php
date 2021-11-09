@@ -73,7 +73,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">عن العاملين :</h6>
                     <a class="collapse-item" href="{{route('register')}}">اضافة عاملين</a>
-                    <a class="collapse-item" href="cards.html">دفع مرتبات عاملين</a>
+                    <a class="collapse-item" href="{{route('pay.user')}}">دفع مرتبات عاملين</a>
                 </div>
             </div>
         </li>

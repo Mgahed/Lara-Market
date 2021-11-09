@@ -31,14 +31,14 @@
                             <td>{{$order->user->name}}</td>
                             <td>{{date('Y-m-d -- h:i A', strtotime($order->updated_at))}}</td>
                             @php($sum += $order->sum)
-                            <td>{{$order->sum}}</td>
+                            <td class="cost">{{$order->sum}}</td>
                         </tr>
                     @endforeach
                     </tbody>
                     <tfoot>
                     <tr>
                         <td colspan="3"><b>المجموع</b></td>
-                        <td colspan="1"><b>{{$sum}}</b></td>
+                        <td class="final-sum" colspan="1"><b>{{$sum}}</b></td>
                     </tr>
                     </tfoot>
                 </table>
@@ -89,4 +89,5 @@
 
         });
     </script>
+    <x-data-table-filter-component/>
 @endpush
