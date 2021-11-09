@@ -126,6 +126,17 @@
     <main class="py-4">
         @yield('content')
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-white" style="padding: 2rem 0; flex-shrink: 0;">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; <a target="_blank"
+                                              href="https://mrtechnawy.com/business">By Mr Technawy</a> {{now()->year}}</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
 </div>
 @stack('bottom-script')
 </body>
