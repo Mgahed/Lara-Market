@@ -27,7 +27,7 @@
                     @foreach ($orders as $order)
                         <tr>
                             <td><a href="{{route('order',$order->order_number)}}">
-                                    ط {{$order->order_number}}</a></td>
+                                    ط{{$order->order_number}}</a></td>
                             <td>{{$order->user->name}}</td>
                             <td>{{date('Y-m-d -- h:i A', strtotime($order->updated_at))}}</td>
                             @php($sum += $order->sum)

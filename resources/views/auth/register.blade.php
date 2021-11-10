@@ -51,7 +51,8 @@
 
                                 <div class="col-md-6">
                                     <input id="password" type="text"
-                                           class="paste-pass form-control @error('password') is-invalid @enderror" name="password"
+                                           class="paste-pass form-control @error('password') is-invalid @enderror"
+                                           name="password"
                                            required autocomplete="new-password">
 
                                     @error('password')
@@ -87,7 +88,10 @@
                                 <button type="button" class="btn btn-dark gen-pass">اقتراح كلمة مرور</button>
                             </div>
                             <div class="col-md-6">
-                                <div class="text text-danger pass" style="cursor: pointer;" title="ccc"></div>
+                                <div class="d-none click-pass">
+                                    <span class="text text-danger pass" style="cursor: pointer;" title="انقر لاستخدام كلمة السر"></span>
+                                    <i class="fas fa-copy" style="cursor: pointer;" title="انقر لاستخدام كلمة السر"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,7 +109,7 @@
             $('.pass').html(password);
             $('.d-none').removeClass('d-none');
         });
-        $('.pass').click(function () {
+        $('.click-pass').click(function () {
             let pass = $('.pass').text();
             $('.paste-pass').val(pass);
         })

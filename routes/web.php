@@ -37,7 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('store', [ProductController::class, 'add'])->name('add.products');
         Route::get('delete', [ProductController::class, 'delete_view'])->name('delete.products.view');
         Route::get('edit', [ProductController::class, 'edit_view'])->name('edit.products.view');
-        Route::post('save_edit', [ProductController::class, 'edit'])->name('edit.products');
+        Route::post('save-edit', [ProductController::class, 'edit'])->name('edit.products');
+        Route::post('return-product', [ProductController::class, 'return_product'])->name('return.product');
     });
 
     Route::group(['prefix' => 'product-size'], function () {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductSize;
 use Illuminate\Http\Request;
@@ -145,5 +146,77 @@ class ProductController extends Controller
             return redirect()->back()->with('products', $products)->with('success', 'تم تعديل المنتج');
         }
         return redirect()->back()->with('products', $products)->with('fail', 'خطأ في تعديل المنتج');
+    }
+
+    public function return_product(Request $request)
+    {
+        if ($request->quantity_to_remove <= 0) {
+            return redirect()->back()->with('fail', 'يجب ان تكون الكمية اكبر من 0');
+        }
+        if ($request->quantity_to_remove > $request->order_quantity) {
+            return redirect()->back()->with('fail', 'يجب ان تكون الكمية اقل من او تساوي ' . $request->order_quantity);
+        }
+        $final_order_sum = $request->quantity_to_remove * $request->order_price;
+        $order = Order::find($request->order_id);
+        if ($request->quantity_to_remove === $request->order_quantity) {
+            $order->delete();
+        } else {
+            $final_order_quantity = $request->order_quantity - $request->quantity_to_remove;
+            $order->update([
+                'quantity' => $final_order_quantity
+            ]);
+        }
+        Order::where('order_number', $request->order_number)->update([
+            'sum' => $order->sum - $final_order_sum
+        ]);
+
+        $product = Product::with('productsize')->find($request->product_id);
+
+        $current_quantity = $product->quantity + $request->quantity_to_remove;
+
+        if ($product->size === 'm') {
+            $product->update([//update current product(medium)
+                'quantity' => $current_quantity
+            ]);
+            Product::where('barcode', $product->productsize->barcode_s)
+                ->update([//update small product
+                    'quantity' => $product->productsize->quantity_s * ($current_quantity) / $product->productsize->quantity_m
+                ]);
+            Product::where('barcode', $product->productsize->barcode_l)
+                ->update([//update large product
+                    'quantity' => $product->productsize->quantity_l * ($current_quantity) / $product->productsize->quantity_m
+                ]);
+            /*--------------*/
+        } elseif ($product->size === 'l') {
+            $product->update([//update current product(large)
+                'quantity' => $current_quantity
+            ]);
+            Product::where('barcode', $product->productsize->barcode_s)
+                ->update([//update small product
+                    'quantity' => $product->productsize->quantity_s * ($current_quantity) / $product->productsize->quantity_l
+                ]);
+            Product::where('barcode', $product->productsize->barcode_m)
+                ->update([//update medium product
+                    'quantity' => $product->productsize->quantity_m * ($current_quantity) / $product->productsize->quantity_l
+                ]);
+            /*--------------*/
+        } else {
+            $product->update([//update current product(small)
+                'quantity' => $current_quantity
+            ]);
+            Product::where('barcode', $product->productsize->barcode_m)
+                ->update([//update medium product
+                    'quantity' => $product->productsize->quantity_m * ($current_quantity) / $product->productsize->quantity_s
+                ]);
+            Product::where('barcode', $product->productsize->barcode_l)
+                ->update([//update large product
+                    'quantity' => $product->productsize->quantity_l * ($current_quantity) / $product->productsize->quantity_s
+                ]);
+        }
+        $check_order_exist = Order::where('order_number', $request->order_number)->first();
+        if (!$check_order_exist) {
+            return redirect()->route('all.orders')->with('success', 'تم ارجاع الكمية و مسح الطلب');
+        }
+        return redirect()->back()->with('success', 'تم ارجاع الكمية');
     }
 }
