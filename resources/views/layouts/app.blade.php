@@ -83,6 +83,10 @@
                                 <a class="dropdown-item" href="{{route('add.companies.view')}}">اضافة موزع</a>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{Request::is('expenses/*') ? 'active' : ''}}"
+                               href="{{ route('add.other.expenses') }}">{{ __('مصاريف اخرى') }}</a>
+                        </li>
                     @endif
                 </ul>
 

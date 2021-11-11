@@ -76,6 +76,10 @@ Route::group(['middleware' => 'auth'], function () {
 ///////expenses section
     Route::group(['prefix' => 'expenses'], function () {
         Route::post('/add-quantity', [ExpenseController::class, 'add_quantity'])->name('add.product.quantity');
+        Route::get('/add-other', function(){
+            return view('expenses.add');
+        })->name('add.other.expenses');
+        Route::post('/add-other', [ExpenseController::class, 'add_other'])->name('add.other.expenses');
     });
 
 ///////debt section

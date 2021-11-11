@@ -79,4 +79,28 @@ class ExpenseController extends Controller
         }
         return redirect()->back()->with(['success' => 'لم يحدث تغيير']);
     }
+
+    public function add_other(Request $request)
+    {
+        $rules = [
+            'expense_details' => 'required',
+            'cost' => 'required|numeric|min:0'
+        ];
+        $customMSG = [
+            'expense_details.required' => __('يجب ادخال الكمية'),
+            'cost.required' => __('يجب ادخال المبلغ'),
+            'cost.numeric' => __('يجب ان يكون ارقام فقط'),
+            'cost.min' => __('يجب ان يكون اكبر من 0')
+        ];
+        $validator = Validator::make($request->all(), $rules, $customMSG);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+        Expense::create([
+            'expense_details' => $request->expense_details,
+            'cost' => $request->cost,
+            'user_id' => auth()->user()->id
+        ]);
+        return redirect()->back()->with('success','تم اضافة المصروف');
+    }
 }

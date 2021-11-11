@@ -75,6 +75,8 @@
         <br>
         <center>
             <button type="button" class="btn btn-success" id="print">طباعة <i class="fa fa-print"></i></button>
+            <br><br>
+            <a href="{{url()->previous()}}" class="btn btn-danger">رجوع</a>
         </center>
     </div>
 
