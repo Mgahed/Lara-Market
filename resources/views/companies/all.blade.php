@@ -125,7 +125,7 @@
     <script type="text/javascript">
         $('div.dataTables_length select').css('width', '100% !important');
         $(document).ready(function () {
-            let o400 = new Option("option text", "5000000");
+            let o400 = new Option("option text", "99000000");
             $(o400).html("الكل");
             setTimeout(function () {
                 $("select[name='dataTable_length']").append(o400);
