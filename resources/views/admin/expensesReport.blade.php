@@ -12,7 +12,7 @@
                 </div>
             @endif
 
-            <h3 class="text-center mb-2"><u>عمليات البيع</u></h3>
+            <h3 class="text-center mb-2"><u>تقرير المصاريف</u></h3>
             <div class="table-responsive-sm ">
                 <table id="dataTable" class="table table-bordered">
                     <thead>
@@ -27,17 +27,17 @@
                     <tbody> @php($sum = 0)
                     @foreach ($expenses as $expense)
                         <tr>
-                            <td>{{$expense->expense_details}}</td>
-                            @if ($expense->product_id)
+                            <td>{{$expense['expense_details']}}</td>
+                            @if ($expense['product_id'])
                                 <td>{{$expense->product->name}}</td>
                                 <td>{{$expense->product_quantity}}</td>
                             @else
                                 <td><span class="text-danger">لا يوجد</span></td>
                                 <td><span class="text-danger">لا يوجد</span></td>
                             @endif
-                            <td>{{date('Y-m-d -- h:i A', strtotime($expense->updated_at))}}</td>
-                            @php($sum += $expense->cost)
-                            <td class="cost">{{$expense->cost}}</td>
+                            <td>{{date('Y-m-d -- h:i A', strtotime($expense['updated_at']))}}</td>
+                            @php($sum += $expense['cost'])
+                            <td class="cost">{{$expense['cost']}}</td>
                         </tr>
                     @endforeach
                     </tbody>

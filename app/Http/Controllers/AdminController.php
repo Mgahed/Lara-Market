@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Debt;
 use App\Models\Expense;
 use App\Models\Order;
 use App\Models\User;
@@ -51,7 +52,23 @@ class AdminController extends Controller
     {
         $orders = Order::with('user:id,name')->groupBy('order_number')->get();
         $expenses = Expense::with('user:id,name')->with('product:id,name')->get();
-//        return $expenses;
+        $debts = Debt::with('customer')->get();
+        foreach ($debts as $debt) {
+            $id = $expenses->max('id');
+            $debt_arr = [
+                "id" => ++$id,
+                "expense_details" => "مديونية على " . $debt->customer->name . " في الطلب رقم " . $debt->order_number,
+                "product_id" => null,
+                "product_quantity" => null,
+                "cost" => $debt->cost,
+                "user_id" => null,
+                "created_at" => $debt->created_at,
+                "updated_at" => $debt->updated_at,
+                "user" => null,
+                "product" => null
+            ];
+            $expenses->push($debt_arr);
+        }
         return view('admin.generalReport', compact('orders', 'expenses'));
     }
 
@@ -64,6 +81,23 @@ class AdminController extends Controller
     public function expenses_report()
     {
         $expenses = Expense::with('user:id,name')->with('product:id,name')->get();
+        $debts = Debt::with('customer')->get();
+        foreach ($debts as $debt) {
+            $id = $expenses->max('id');
+            $debt_arr = [
+                "id" => ++$id,
+                "expense_details" => "مديونية على " . $debt->customer->name . " في الطلب رقم " . $debt->order_number,
+                "product_id" => null,
+                "product_quantity" => null,
+                "cost" => $debt->cost,
+                "user_id" => null,
+                "created_at" => $debt->created_at,
+                "updated_at" => $debt->updated_at,
+                "user" => null,
+                "product" => null
+            ];
+            $expenses->push($debt_arr);
+        }
         return view('admin.expensesReport', compact('expenses'));
     }
 

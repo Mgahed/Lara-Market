@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Debt;
 use App\Models\Order;
 use App\Models\PendingOrder;
 use App\Models\Product;
@@ -89,6 +90,13 @@ class OrderController extends Controller
         if ($request->payed >= $request->sum) {
             $message = 'تم تسجيل الطلب و متبقي للعميل مبغ ' . '<b>' . ($request->payed - $request->sum) . '</b>' . ' جنيه';
         } else {
+            /*----------Debt----------*/
+            Debt::create([
+                'cost' => $request->sum - $request->payed,
+                'customer_id' => $customer->id,
+                'order_number' => $request->order_id
+            ]);
+            /*----------Debt----------*/
             $message = 'تم تسجيل الطلب و تسجيل مديونية على العميل ' . '<b>' . $request->customer_name . '</b>' . ' بمبلغ ' . '<b>' . ($request->sum - $request->payed) . '</b>' . ' جنيه';
         }
         $final_order = Order::with('user', 'customer', 'product')->where('order_number', $request->order_id)->get();

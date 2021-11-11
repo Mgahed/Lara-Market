@@ -61,17 +61,17 @@
                             <tbody> @php($sum_expense = 0)
                             @foreach ($expenses as $expense)
                                 <tr>
-                                    <td>{{$expense->expense_details}}</td>
-                                    @if ($expense->product_id)
+                                    <td>{{$expense['expense_details']}}</td>
+                                    @if ($expense['product_id'])
                                         <td>{{$expense->product->name}}</td>
                                         <td>{{$expense->product_quantity}}</td>
                                     @else
                                         <td><span class="text-danger">لا يوجد</span></td>
                                         <td><span class="text-danger">لا يوجد</span></td>
                                     @endif
-                                    <td>{{date('Y-m-d -- h:i A', strtotime($expense->updated_at))}}</td>
-                                    @php($sum_expense += $expense->cost)
-                                    <td>{{$expense->cost}}</td>
+                                    <td>{{date('Y-m-d -- h:i A', strtotime($expense['updated_at']))}}</td>
+                                    @php($sum_expense += $expense['cost'])
+                                    <td>{{$expense['cost']}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
