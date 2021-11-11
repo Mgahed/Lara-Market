@@ -33,13 +33,20 @@
                     <tr>
                         <td>{{$item->customer->name}}</td>
                         <td><a href="{{route('order',$item->order_number)}}">ط{{$item->order_number}}</a></td>
-                        <td>{{$item->cost}}</td>
+                        <td class="cost">{{$item->cost}}</td>
                         <td class="hide-print">
                             <a href="{{route('pay.debt',$item->id)}}" class="btn btn-info">تسديد <i class="fa fa-check-square-o"></i></a>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2"><b>المجموع</b></td>
+                    <td class="final-sum" colspan="1"><b>0</b></td>
+                    <td class="hide-print" style="border-right: 0;"></td>
+                </tr>
+                </tfoot>
             </table>
         </div>
         <br>
@@ -146,4 +153,5 @@
 
         });
     </script>
+    <x-data-table-filter-component/>
 @endpush
