@@ -219,4 +219,10 @@ class ProductController extends Controller
         }
         return redirect()->back()->with('success', 'تم ارجاع الكمية');
     }
+
+    public function will_finish()
+    {
+        $products = Product::where('quantity', '<=', 5)->get();
+        return view('products.getAll', compact('products'));
+    }
 }

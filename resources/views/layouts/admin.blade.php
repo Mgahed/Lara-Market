@@ -79,11 +79,11 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
+        {{--<li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-apple-alt"></i>
                 <span>المنتجات</span></a>
-        </li>
+        </li>--}}
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -112,11 +112,11 @@
                 <span>تقرير المصاريف</span></a>
         </li>
 
-        <li class="nav-item">
+        {{--<li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-file-alt"></i>
                 <span>تقرير دخول العاملين</span></a>
-        </li>
+        </li>--}}
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

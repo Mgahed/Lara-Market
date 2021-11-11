@@ -26,6 +26,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('datalist/dataList.css')}}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/bell.css')}}">
     @stack('style')
 </head>
 <body>
@@ -101,6 +102,19 @@
                         {{--                            </li>--}}
                         {{--                        @endif--}}
                     @else
+                        <?php
+                        $product_less_5 = DB::table('products')
+                            ->where('quantity', '<=', 5)
+                            ->get();
+                        ?>
+                        @if ($product_less_5->count())
+                            <li class="nav-item">
+                                <a href="{{route('will.finish')}}" class="nav-link" data-toggle="tooltip" data-placement="bottom"
+                                   title="يوجد {{$product_less_5->count()}} منتج قارب على الانتهاء">
+                                    <i class='bell fa fa-bell'></i>
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

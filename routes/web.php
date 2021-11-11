@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('edit', [ProductController::class, 'edit_view'])->name('edit.products.view');
         Route::post('save-edit', [ProductController::class, 'edit'])->name('edit.products');
         Route::post('return-product', [ProductController::class, 'return_product'])->name('return.product');
+        Route::get('will-finish-soon', [ProductController::class, 'will_finish'])->name('will.finish');
     });
 
     Route::group(['prefix' => 'product-size'], function () {
