@@ -32,14 +32,14 @@
                                     <td>{{$order->user->name}}</td>
                                     <td>{{date('Y-m-d -- h:i A', strtotime($order->updated_at))}}</td>
                                     @php($sum += $order->sum)
-                                    <td>{{$order->sum}}</td>
+                                    <td class="cost1">{{$order->sum}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
                                 <td colspan="3"><b>المجموع الكلي</b></td>
-                                <td colspan="1"><b>{{$sum}}</b></td>
+                                <td class="final-sum1" colspan="1"><b>{{$sum}}</b></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -71,14 +71,14 @@
                                     @endif
                                     <td>{{date('Y-m-d -- h:i A', strtotime($expense['updated_at']))}}</td>
                                     @php($sum_expense += $expense['cost'])
-                                    <td>{{$expense['cost']}}</td>
+                                    <td class="cost">{{$expense['cost']}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
                                 <td colspan="4"><b>المجموع الكلي</b></td>
-                                <td colspan="1"><b>{{$sum_expense}}</b></td>
+                                <td class="final-sum" colspan="1"><b>{{$sum_expense}}</b></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -89,11 +89,11 @@
             <center>
                 @if ($sum>=$sum_expense)
                     <div class="alert alert-success">
-                        <p>لديك ربح بمبلغ {{$sum-$sum_expense}}</p>
+                        <p>لديك ربح بمبلغ <span class="final_total">{{$sum-$sum_expense}}</span></p>
                     </div>
                 @else
                     <div class="alert alert-danger">
-                        <p>لديك خسارة بمبلغ {{$sum_expense-$sum}}</p>
+                        <p>لديك خسارة بمبلغ <span class="final_total">{{$sum_expense-$sum}}</span></p>
                     </div>
                 @endif
                 {{--<button type="button" class="btn btn-success" id="print">طباعة <i class="fa fa-print"></i></button>--}}
@@ -115,8 +115,11 @@
         $(document).ready(function () {
             let o400 = new Option("option text", "5000000");
             $(o400).html("الكل");
+            let o500 = new Option("option text", "5000000");
+            $(o500).html("الكل");
             setTimeout(function () {
                 $("select[name='dataTable_length']").append(o400);
+                $("select[name='dataTable2_length']").append(o500);
             }, 100)
         });
 
@@ -138,4 +141,5 @@
 
         });
     </script>
+    <x-data-table-filter-component/>
 @endpush
