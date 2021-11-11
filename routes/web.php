@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DebtController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -71,9 +72,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/save-edit', [CompanyController::class, 'edit_companies'])->name('edit.companies');
     });
 
-///////el expenses section
+///////expenses section
     Route::group(['prefix' => 'expenses'], function () {
         Route::post('/add-quantity', [ExpenseController::class, 'add_quantity'])->name('add.product.quantity');
+    });
+
+///////debt section
+    Route::group(['prefix' => 'debt'], function () {
+        Route::get('/all', [DebtController::class, 'all_debts'])->name('all.debts');
+        Route::get('/pay/{id}', [DebtController::class, 'pay_debt'])->name('pay.debt');
     });
 
 ///////Admin section

@@ -66,6 +66,11 @@
                                {{-- request()->routeIs('home') --}}
                                href="{{ route('all.orders') }}">{{ __('عمليات البيع') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{Request::is('debt/*') ? 'active' : ''}}"
+                               {{-- request()->routeIs('home') --}}
+                               href="{{ route('all.debts') }}">{{ __('الديون') }}</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle {{Request::is('company') ? 'active' : ''}} {{Request::is('company/*') ? 'active' : ''}}"
                                href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"

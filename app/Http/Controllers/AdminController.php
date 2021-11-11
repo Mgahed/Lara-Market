@@ -27,7 +27,10 @@ class AdminController extends Controller
             $month_expense = Expense::select('cost')->whereYear('created_at', '=', now()->year)
                 ->whereMonth('created_at', '=', $i);
 
-            array_push($arr, $month_sell->sum('sum') - $month_expense->sum('cost'));
+            $month_debts = Debt::select('cost')->whereYear('created_at', '=', now()->year)
+                ->whereMonth('created_at', '=', $i);
+
+            array_push($arr, $month_sell->sum('sum') - ($month_expense->sum('cost') + $month_debts->sum('cost')));
         }
         /*------------For sells------------*/
         $monthly_sells = Order::select('sum')->whereMonth('created_at', '=', now()->month)
@@ -40,10 +43,12 @@ class AdminController extends Controller
 
         /*------------For expenses------------*/
         $monthly_expense = Expense::select('cost')->whereMonth('created_at', '=', now()->month)->get();
-        $monthly_expense = $monthly_expense->sum('cost');
+        $monthly_debt = Debt::select('cost')->whereMonth('created_at', '=', now()->month)->get();
+        $monthly_expense = $monthly_expense->sum('cost') + $monthly_debt->sum('cost');
 
         $yearly_expense = Expense::select('cost')->whereYear('created_at', '=', now()->year)->get();
-        $yearly_expense = $yearly_expense->sum('cost');
+        $yearly_debt = Debt::select('cost')->whereYear('created_at', '=', now()->year)->get();
+        $yearly_expense = $yearly_expense->sum('cost') + $yearly_debt->sum('cost');
 
         return view('admin.dashboard', compact('arr', 'monthly_sells', 'yearly_sells', 'monthly_expense', 'yearly_expense'));
     }
