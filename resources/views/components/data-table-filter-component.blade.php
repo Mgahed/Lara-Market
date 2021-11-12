@@ -40,7 +40,7 @@
                 get_sum()
                 get_sum1()
                 get_final_total()
-            }, 100)
+            }, 300)
         });
-    }, 100)
+    }, 300)
 </script>

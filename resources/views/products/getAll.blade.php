@@ -29,7 +29,7 @@
                     <th>سعر البيع</th>
                     <th>سعر الشراء</th>
                     <th>النوع</th>
-                    <th class="hide-print">العمليات</th>
+                    <th class="d-print-none">العمليات</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,7 @@
                         <td>{{$product->price_of_sell}}</td>
                         <td>{{$product->price_of_buy}}</td>
                         <td>{{$product->category}}</td>
-                        <td class="hide-print">
+                        <td class="d-print-none">
                             <button type="button" onclick="my_ajax({{$product->id}})" class="btn btn-success"
                                     data-toggle="modal" data-target="#exampleModal">
                                 تعديل <i class="fa fa-pencil"></i>
@@ -191,6 +191,7 @@
     <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/datatables-demo.js')}}"></script>
+    <script src="{{asset('print/printThis.js')}}"></script>
     <script type="text/javascript">
         $('div.dataTables_length select').css('width', '100% !important');
         $(document).ready(function () {
@@ -269,21 +270,10 @@
 
         //print
         $('#print').click(function () {
-            let divToPrint = $('.col-sm-12').eq(2)[0];
-            // let info = $('.info').html();
-
-            let newWin = window.open('', 'Print-Window');
-
-            newWin.document.open();
-
-            newWin.document.write('<html dir="rtl"><body onload="window.print()"><style>.hide-print{display:none;} table{width: 100%;} table, th, td {border: 1px solid black;border-collapse: collapse; direction:rtl; text-align-last: center;}</style>' + divToPrint.innerHTML + '</body></html>');
-
-            newWin.document.close();
-
-            setTimeout(function () {
-                newWin.close();
-            }, 10);
-
+            $('.col-sm-12').eq(2).printThis({
+                importCSS: true,
+                importStyle: true
+            });
         });
     </script>
 @endpush

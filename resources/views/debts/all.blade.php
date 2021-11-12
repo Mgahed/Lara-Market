@@ -25,7 +25,7 @@
                     <th>اسم العميل</th>
                     <th>رقم العملية</th>
                     <th>المبلغ</th>
-                    <th class="hide-print">تسديد دين</th>
+                    <th class="d-print-none">تسديد دين</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,7 +34,7 @@
                         <td>{{$item->customer->name}}</td>
                         <td><a href="{{route('order',$item->order_number)}}">ط{{$item->order_number}}</a></td>
                         <td class="cost">{{$item->cost}}</td>
-                        <td class="hide-print">
+                        <td class="d-print-none">
                             <a href="{{route('pay.debt',$item->id)}}" class="btn btn-info">تسديد <i class="fa fa-check-square-o"></i></a>
                         </td>
                     </tr>
@@ -44,7 +44,7 @@
                 <tr>
                     <td colspan="2"><b>المجموع</b></td>
                     <td class="final-sum" colspan="1"><b>0</b></td>
-                    <td class="hide-print" style="border-right: 0;"></td>
+                    <td class="d-print-none" style="border-right: 0;"></td>
                 </tr>
                 </tfoot>
             </table>
@@ -124,6 +124,7 @@
     <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/datatables-demo.js')}}"></script>
+    <script src="{{asset('print/printThis.js')}}"></script>
     <script type="text/javascript">
         $('div.dataTables_length select').css('width', '100% !important');
         $(document).ready(function () {
@@ -137,19 +138,23 @@
         //print
         $('#print').click(function () {
             let divToPrint = $('.col-sm-12').eq(2)[0];
-            let info = $('.info').html();
-
-            let newWin = window.open('', 'Print-Window');
-
-            newWin.document.open();
-
-            newWin.document.write('<html dir="rtl"><body onload="window.print()"><style>.hide-print{display:none;} table{width: 100%;} table, th, td {border: 1px solid black;border-collapse: collapse; direction:rtl; text-align-last: center;}</style>' + divToPrint.innerHTML + '</body></html>');
-
-            newWin.document.close();
-
-            setTimeout(function () {
-                newWin.close();
-            }, 10);
+            // let info = $('.info').html();
+            //
+            // let newWin = window.open('', 'Print-Window');
+            //
+            // newWin.document.open();
+            //
+            // newWin.document.write('<html dir="rtl"><body onload="window.print()"><style>.d-print-none{display:none;} table{width: 100%;} table, th, td {border: 1px solid black;border-collapse: collapse; direction:rtl; text-align-last: center;}</style>' + divToPrint.innerHTML + '</body></html>');
+            //
+            // newWin.document.close();
+            //
+            // setTimeout(function () {
+            //     newWin.close();
+            // }, 10);
+            $('.col-sm-12').eq(2).printThis({
+                importCSS: true,
+                importStyle: true
+            });
 
         });
     </script>

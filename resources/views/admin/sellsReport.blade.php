@@ -61,6 +61,7 @@
     <script type="text/javascript"
             src="{{asset('plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/datatables-demo.js')}}"></script>
+    <script src="{{asset('print/printThis.js')}}"></script>
     <script type="text/javascript">
         $('div.dataTables_length select').css('width', '100% !important');
         $(document).ready(function () {
@@ -73,20 +74,11 @@
 
         //print
         $('#print').click(function () {
-            let divToPrint = $('.col-sm-12').eq(2)[0];
-
-            let newWin = window.open('', 'Print-Window');
-
-            newWin.document.open();
-
-            newWin.document.write('<html dir="rtl"><body onload="window.print()"><style>.hide{display:none;} table{width: 100%;} table, th, td {border: 0px solid black;border-collapse: collapse; direction:rtl; text-align-last: center;}</style>' + '<br>' + divToPrint.innerHTML + '</body></html>');
-
-            newWin.document.close();
-
-            setTimeout(function () {
-                newWin.close();
-            }, 10);
-
+            $('.col-sm-12').eq(2).printThis({
+                importCSS: true,
+                importStyle: true,
+                loadCSS: "{{asset('print/adminRTL.css')}}",
+            });
         });
     </script>
     <x-data-table-filter-component/>

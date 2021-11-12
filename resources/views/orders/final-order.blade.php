@@ -36,24 +36,24 @@
             <table id="dataTable" class="table table-bordered">
                 <thead>
                 <tr>
-                    <th class="hide-print">رقم الباركود</th>
+                    <th class="d-print-none">رقم الباركود</th>
                     <th>اسم المنتج</th>
                     <th>سعر الواحدة</th>
                     <th>الكمية</th>
                     <th>السعر الكلي</th>
-                    <th class="hide-print">ارجاع منتج</th>
+                    <th class="d-print-none">ارجاع منتج</th>
                 </tr>
                 </thead>
                 <tbody> {{--@php($sum = 0)--}}
                 @foreach ($final_order as $item)
                     <tr>
-                        <td class="hide-print">{{$item->product->barcode}}</td>
+                        <td class="d-print-none">{{$item->product->barcode}}</td>
                         <td>{{$item->product->name}}</td>
                         <td>{{$item->price}}</td>
                         <td>{{$item->quantity}}</td>
                         {{--@php($sum += $item->product->price_of_sell*$item->quantity)--}}
                         <td class="cost">{{$item->price*$item->quantity}}</td>
-                        <td class="hide-print">
+                        <td class="d-print-none">
                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                     data-target="#remove_product"
                                     onclick="remove_product({{$item->product->id}},{{$item->id}},{{$item->order_number}} ,{{$item->quantity}},{{$item->price}})">
@@ -66,7 +66,7 @@
                 <tfoot>
                 <tr>
                     <td colspan="3"><b>المجموع</b></td>
-                    <td colspan="1" style="border-right: 0;" class="hide-print"></td>
+                    <td colspan="1" style="border-right: 0;" class="d-print-none"></td>
                     <td class="final-sum" colspan="2"><b>{{$item->sum}}</b></td>
                 </tr>
                 </tfoot>
@@ -139,6 +139,7 @@
     <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/datatables-demo.js')}}"></script>
+    <script src="{{asset('print/printThis.js')}}"></script>
     <script type="text/javascript">
         $('div.dataTables_length select').css('width', '100% !important');
         $(document).ready(function () {
@@ -151,21 +152,10 @@
 
         //print
         $('#print').click(function () {
-            let divToPrint = $('.col-sm-12').eq(2)[0];
-            let info = $('.info').html();
-
-            let newWin = window.open('', 'Print-Window');
-
-            newWin.document.open();
-
-            newWin.document.write('<html dir="rtl"><body onload="window.print()"><style>.hide-print{display:none;} table{width: 100%;} table, th, td {border: 1px solid black;border-collapse: collapse; direction:rtl; text-align-last: center;}</style>' + info + '<br>' + divToPrint.innerHTML + '</body></html>');
-
-            newWin.document.close();
-
-            setTimeout(function () {
-                newWin.close();
-            }, 10);
-
+            $('.col-sm-12').eq(2).printThis({
+                importCSS: true,
+                importStyle: true
+            });
         });
     </script>
     <script>
